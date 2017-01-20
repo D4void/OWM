@@ -1,0 +1,93 @@
+-- My Conky OWM with barograph setup
+
+--[[
+	v0.1 / 2017-01-18 - D4void
+	There is no call to owm.sh in this script as I use crontab to generate the barograph every 10mn.
+	see README
+	https://github.com/D4void/OWM
+]]
+
+conky.config = {
+	background = true,
+	use_xft = true,
+	font = 'Arial:size=10',
+	xftalpha = 0,
+	update_interval = 300,
+	total_run_times = 0,
+	double_buffer = true,
+	own_window = true,
+	own_window_class = 'Conky', 
+	own_window_title = 'weather',
+	own_window_type = 'normal',
+	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+	own_window_transparent = false,
+	own_window_colour = 'black',
+	own_window_argb_visual = true,
+	own_window_argb_value = 190,
+	minimum_height = 200,
+	minimum_width = 350,
+	maximum_width = 350,
+	draw_shades = false,
+	draw_outline = false,
+	draw_borders = false,
+	draw_graph_borders = true,
+	stippled_borders = 8,
+	border_inner_margin = 4,
+	border_width = 1,
+	default_color = 'white',
+	default_shade_color = 'black',
+	default_outline_color = 'white',
+	alignment = 'bottom_right',
+	gap_x = 0,
+	gap_y = 0,
+	use_spacer = 'none',
+	color0 = 'f4f639',
+	short_units = true,
+	pad_percents = 2,
+	top_name_width = 10,
+	imlib_cache_size = 0
+}
+
+
+conky.text = [[
+${font Arial:size=14}${color0}${goto 150}${execpi 720 cat $HOME/.conky/owm/data/city}
+${goto 150}${execpi 720 cat $HOME/.conky/owm/data/cdesc}${color}
+${goto 150}${font Arial:size=12}${execpi 720 cat $HOME/.conky/owm/data/ctemp}C${font}
+
+
+${goto 70}${execpi 720 cat $HOME/.conky/owm/data/cwd}${goto 130}${color0}PRESSION: $color${execpi 720 cat $HOME/.conky/owm/data/cpress}
+${goto 70}${execpi 720 cat $HOME/.conky/owm/data/cws}${goto 130}${color0}NUAGE: $color${execpi 720 cat $HOME/.conky/owm/data/ccloud}
+${goto 130}${color0}HUMIDITE: $color${execpi 720 cat $HOME/.conky/owm/data/chum}
+${goto 130}${color0}VISIBILITE: $color${execpi 720 cat $HOME/.conky/owm/data/cvis}
+${goto 130}${color0}PLUVIOMETRIE: $color${execpi 720 cat $HOME/.conky/owm/data/crain}
+${goto 130}${color0}LEVER / COUCHER: $color${execpi 720 cat $HOME/.conky/owm/data/csr} / ${execpi 720 cat $HOME/.conky/owm/data/css}
+${goto 130}${color0}FETE: $color${texeci 43200 wget -O - -q  http://fetedujour.fr/  --user-agent="Mozilla/5.0 (Windows NT 5.1; rv:31.0) Gecko/20100101 Firefox/50.0" | grep "<span>Fête du jour" | head -1 | cut -d">" -f4 | cut -d"<" -f1}
+
+
+${goto 10}$font${color0}${execpi 720 cat $HOME/.conky/owm/data/f1wdname}  $color${font Arial:size=8}(Vent max: ${execpi 720 cat $HOME/.conky/owm/data/f1wmaxdir} - ${execpi 720 cat $HOME/.conky/owm/data/f1wsmax})
+${goto 15}7h: ${execpi 720 cat $HOME/.conky/owm/data/f1amtemp}${goto 130}13h: ${execpi 720 cat $HOME/.conky/owm/data/f1ntemp}${goto 240}16h: ${execpi 720 cat $HOME/.conky/owm/data/f1pmtemp}
+${goto 15}${execpi 720 cat $HOME/.conky/owm/data/f1amdesc}${goto 130}${execpi 720 cat $HOME/.conky/owm/data/f1ndesc}${goto 240}${execpi 720 cat $HOME/.conky/owm/data/f1pmdesc}
+
+
+
+
+
+${goto 10}$font${color0}${execpi 720 cat $HOME/.conky/owm/data/f2wdname}  $color${font Arial:size=8}(Vent max: ${execpi 720 cat $HOME/.conky/owm/data/f2wmaxdir} - ${execpi 720 cat $HOME/.conky/owm/data/f2wsmax})
+${goto 15}7h: ${execpi 720 cat $HOME/.conky/owm/data/f2amtemp}${goto 130}13h: ${execpi 720 cat $HOME/.conky/owm/data/f2ntemp}${goto 240}16h: ${execpi 720 cat $HOME/.conky/owm/data/f2pmtemp}
+${goto 15}${execpi 720 cat $HOME/.conky/owm/data/f2amdesc}${goto 130}${execpi 720 cat $HOME/.conky/owm/data/f2ndesc}${goto 240}${execpi 720 cat $HOME/.conky/owm/data/f2pmdesc}
+
+
+
+
+
+${goto 10}$font${color0}${execpi 720 cat $HOME/.conky/owm/data/f3wdname}  $color${font Arial:size=8}(Vent max: ${execpi 720 cat $HOME/.conky/owm/data/f3wmaxdir} - ${execpi 720 cat $HOME/.conky/owm/data/f3wsmax})
+${goto 15}7h: ${execpi 720 cat $HOME/.conky/owm/data/f3amtemp}${goto 130}13h: ${execpi 720 cat $HOME/.conky/owm/data/f3ntemp}${goto 240}16h: ${execpi 720 cat $HOME/.conky/owm/data/f3pmtemp}
+${goto 15}${execpi 720 cat $HOME/.conky/owm/data/f3amdesc}${goto 130}${execpi 720 cat $HOME/.conky/owm/data/f3ndesc}${goto 240}${execpi 720 cat $HOME/.conky/owm/data/f3pmdesc}
+
+
+
+
+
+${alignr}(donnée du: ${execpi 720 cat $HOME/.conky/owm/data/ccalc})${image $HOME/.conky/owm/data/current.png -p -15,0 -s 166x100}${image $HOME/.conky/owm/data/crow.png -p 5,75 -s 70x70}${image $HOME/.conky/owm/data/lbarograph.png -p 10,140 -s 110x80}${image $HOME/.conky/owm/data/f1am.png -p 15,270 -s 83x50}${image $HOME/.conky/owm/data/f1n.png -p 130,270 -s 83x50}${image $HOME/.conky/owm/data/f1pm.png -p 240,270 -s 83x50}${image $HOME/.conky/owm/data/f2am.png -p 15,370 -s 83x50}${image $HOME/.conky/owm/data/f2n.png -p 130,370 -s 83x50}${image $HOME/.conky/owm/data/f2pm.png -p 240,370 -s 83x50}${image $HOME/.conky/owm/data/f3am.png -p 15,470 -s 83x50}${image $HOME/.conky/owm/data/f3n.png -p 130,470 -s 83x50}${image $HOME/.conky/owm/data/f3pm.png -p 240,470 -s 83x50}
+]]
+
