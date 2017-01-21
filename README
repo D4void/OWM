@@ -1,5 +1,3 @@
-# OWM
-conky and bash script to download and parse OpenWeatherMap current weather and hourly forecast
 
 owm.sh is a bash script to automatically download and parse OpenWeatherMap current weather and hourly forecast.
 Then you can use it with conky to display your meteo on your desktop.
@@ -68,3 +66,4 @@ USE
 
 Have fun
 (forgive my english)
+
